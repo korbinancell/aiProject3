@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ArrayOfItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <item key="_________" value="0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5" />
+  <item key="_____X_O_" value="0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5" />
+  <item key="____OX_OX" value="0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5" />
+  <item key="_XO_OX_OX" value="0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5" />
+  <item key="OXO_OXXOX" value="0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5" />
+</ArrayOfItem>

@@ -70,6 +70,17 @@ namespace AIProject3
                 ctr++;
               }
 
+            DoFile writer = new DoFile();
+
+            Console.WriteLine("Write:");
+            writer.WriteStatetionary("test.txt", x.getStatetionary());
+
+            Console.WriteLine("Read:");
+            var stionary = writer.ReadStatetionary("test.txt");
+
+            foreach (var blep in stionary)
+                Console.WriteLine("{0}: {1}", blep.Key, blep.Value.ToString());
+
             /*StringBuilder test;
             StringBuilder cb = new StringBuilder("XOOOXOOOX");
 
