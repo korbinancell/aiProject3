@@ -41,7 +41,12 @@ namespace AIProject3
         {
             return currentBoard;
         }
-        
+
+        public Dictionary<string, double[]> getStatetionary()
+        {
+            return statetionary;
+        }
+
         private bool seenState()
         {
             StringBuilder cb = currentBoard;
@@ -185,7 +190,6 @@ namespace AIProject3
                     return true;
                 var test = new StringBuilder(tempo[6].ToString() + tempo[3].ToString() + tempo[0].ToString() + tempo[7].ToString() + tempo[4].ToString() + tempo[1].ToString() + tempo[8].ToString() + tempo[5].ToString() + tempo[2].ToString());
                 tempo = test;
-                //Console.WriteLine(tempo);
             }
 
             return false;
@@ -194,15 +198,7 @@ namespace AIProject3
         public void giveReinforcement(bool didIWin)
         {
             var mostRecentmove = previousMoves.Pop();
-            /*Console.WriteLine(mostRecentmove.Item1);
-
-            Console.WriteLine("stationary: ");
-            Console.WriteLine(statetionary.Count());
-            foreach (var k in statetionary)
-            {
-                Console.WriteLine(k.Key);
-            }
-            */
+            
             double[] values = statetionary[mostRecentmove.Item1.ToString()];
             double currentDecay = decayFactor;
 

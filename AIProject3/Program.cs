@@ -33,6 +33,15 @@ namespace AIProject3
                     Console.WriteLine("X wins");
                     x.giveReinforcement(true);
                     o.giveReinforcement(false);
+                    /*foreach (var k in x.getStatetionary())
+                    {
+                        Console.WriteLine("key: {0} value: ", k.Key);
+                        foreach (var d in k.Value)
+                        {
+                            Console.Write("{0} ", d);
+                        }
+                    }*/
+
                     break;
                 }
                 else if (x.hasWon('O'))
@@ -40,7 +49,14 @@ namespace AIProject3
                     Console.WriteLine("O wins");
                     x.giveReinforcement(false);
                     o.giveReinforcement(true);
-                    break;
+                    /*foreach (var k in x.getStatetionary())
+                    {
+                        Console.WriteLine("key: {0} value: ", k.Key);
+                        foreach (var d in k.Value)
+                        {
+                            Console.Write("{0} ", d);
+                        }
+                    }*/
                 }
                 else if (!x.getCurrentBoard().ToString().Contains('_'))
                 {
@@ -48,13 +64,9 @@ namespace AIProject3
                     break;
                 }
                 if(ctr%2 == 0)
-                {
                     x.makeMove(o.getCurrentBoard());
-                }
                 else 
-                {
                     o.makeMove(x.getCurrentBoard());
-                }
                 ctr++;
               }
 
