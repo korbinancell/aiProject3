@@ -138,13 +138,13 @@ namespace AIProject3
 
         public void makeMove(StringBuilder boardRigtNow)
         {
-            Console.WriteLine("makeMove function");
+            //Console.WriteLine("makeMove function");
             currentBoard = boardRigtNow;
             if(!seenState())
             {
                 double[] h = { 0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5};
                 statetionary.Add(currentBoard.ToString(), h);
-                Console.WriteLine("hello from makeMove");
+                //Console.WriteLine("hello from makeMove");
             }
             if (favorExploration)
             {
@@ -160,9 +160,9 @@ namespace AIProject3
 
 
                 previousMoves.Push(Tuple.Create(new StringBuilder(currentBoard.ToString()), sorted[a].Item1));
-                Console.WriteLine("current board is {0}", currentBoard.ToString());
+                //Console.WriteLine("current board is {0}", currentBoard.ToString());
                 currentBoard[ sorted[a].Item1 ] = token; 
-                Console.WriteLine("current board is {0}", currentBoard.ToString());
+                //Console.WriteLine("current board is {0}", currentBoard.ToString());
 
             }
         }
@@ -183,8 +183,9 @@ namespace AIProject3
                 //diagonally through the middle
                 if (tempo[0] == tkn && tempo[4] == tkn && tempo[8] == tkn)
                     return true;
-                var test = new StringBuilder(tempo[2].ToString() + tempo[1].ToString() + tempo[0].ToString() + tempo[5].ToString() + tempo[4].ToString() + tempo[3].ToString() + tempo[8].ToString() + tempo[7].ToString() + tempo[6].ToString());
+                var test = new StringBuilder(tempo[6].ToString() + tempo[3].ToString() + tempo[0].ToString() + tempo[7].ToString() + tempo[4].ToString() + tempo[1].ToString() + tempo[8].ToString() + tempo[5].ToString() + tempo[2].ToString());
                 tempo = test;
+                //Console.WriteLine(tempo);
             }
 
             return false;
@@ -193,7 +194,7 @@ namespace AIProject3
         public void giveReinforcement(bool didIWin)
         {
             var mostRecentmove = previousMoves.Pop();
-            Console.WriteLine(mostRecentmove.Item1);
+            /*Console.WriteLine(mostRecentmove.Item1);
 
             Console.WriteLine("stationary: ");
             Console.WriteLine(statetionary.Count());
@@ -201,7 +202,7 @@ namespace AIProject3
             {
                 Console.WriteLine(k.Key);
             }
-
+            */
             double[] values = statetionary[mostRecentmove.Item1.ToString()];
             double currentDecay = decayFactor;
 

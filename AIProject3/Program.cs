@@ -12,7 +12,7 @@ namespace AIProject3
         {
             //play itself
             Agent x = new Agent("temp_filename", 'X', new StringBuilder("_________"));
-            Agent o = new Agent("temp_filename", 'O', new StringBuilder("_________"), x);
+            Agent o = new Agent("temp_filename", 'O', new StringBuilder("_________"));
             int ctr = 0;
 
             while (true)
@@ -26,6 +26,7 @@ namespace AIProject3
                     }
                     Console.WriteLine();
                 }
+                Console.WriteLine();
 
                 if (x.hasWon('X'))
                 {
@@ -43,8 +44,7 @@ namespace AIProject3
                 }
                 else if (!x.getCurrentBoard().ToString().Contains('_'))
                 {
-                    var cb = x.getCurrentBoard().ToString();
-                    Console.WriteLine("O wins");
+                    Console.WriteLine("Tie Game");
                     break;
                 }
                 if(ctr%2 == 0)
