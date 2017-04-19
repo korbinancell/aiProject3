@@ -79,7 +79,7 @@ namespace AIProject3
             var stionary = writer.ReadStatetionary("test.txt");
 
             foreach (var blep in stionary)
-                Console.WriteLine("{0}: {1}", blep.Key, blep.Value.ToString());
+                Console.WriteLine("{0}: {1}", blep.Key, String.Join(",", blep.Value.Select(p => p.ToString()).ToArray()));
 
             /*StringBuilder test;
             StringBuilder cb = new StringBuilder("XOOOXOOOX");
