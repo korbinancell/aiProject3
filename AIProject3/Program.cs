@@ -29,21 +29,22 @@ namespace AIProject3
 
                 if (x.hasWon('X'))
                 {
+                    Console.WriteLine("X wins");
                     x.giveReinforcement(true);
                     o.giveReinforcement(false);
-                    Console.WriteLine("X wins");
                     break;
                 }
                 else if (x.hasWon('O'))
                 {
+                    Console.WriteLine("O wins");
                     x.giveReinforcement(false);
                     o.giveReinforcement(true);
-                    Console.WriteLine("O wins");
                     break;
                 }
                 else if (!x.getCurrentBoard().ToString().Contains('_'))
                 {
                     var cb = x.getCurrentBoard().ToString();
+                    Console.WriteLine("O wins");
                     break;
                 }
                 if(ctr%2 == 0)
