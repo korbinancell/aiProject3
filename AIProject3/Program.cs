@@ -15,14 +15,17 @@ namespace AIProject3
 
             if (input == "Y")
             {
-                Agent x = new Agent("temp_filename", 'X', new StringBuilder("_________"), false);
-                DoFile writerA = new DoFile();
-                var Astionary = writerA.ReadStatetionary("test.txt");
-                x.setStatetionary(Astionary);
-                StringBuilder humanBoard = x.getCurrentBoard();
-
                 Console.WriteLine("Do you wanna go first? Y/N");
                 bool first = Console.ReadLine() == "Y";
+
+                char humanToken = first ? 'X' : 'O';
+                char botToken = first ? 'O' : 'X';
+
+                Agent x = new Agent("test" + botToken + ".txt", botToken, new StringBuilder("_________"), false);
+                DoFile writerA = new DoFile();
+                var Astionary = writerA.ReadStatetionary("test" + botToken + ".txt");
+                x.setStatetionary(Astionary);
+                StringBuilder humanBoard = x.getCurrentBoard();
 
                 if(!first)
                     x.makeMove(x.getCurrentBoard());
@@ -47,7 +50,7 @@ namespace AIProject3
                     int place;
                     Int32.TryParse(Console.ReadLine(), out place);
 
-                    humanBoard[place] = 'O';
+                    humanBoard[place] = humanToken;
                     x.setcurrentBoard(humanBoard);
 
                     var Atest = humanBoard;
@@ -61,13 +64,13 @@ namespace AIProject3
                     }
                     Console.WriteLine();
 
-                    if (x.hasWon('X'))
+                    if (x.hasWon(botToken))
                     {
                         Console.WriteLine("You Lost! :(");
                         x.giveReinforcement(true);
                         break;
                     }
-                    else if (x.hasWon('O'))
+                    else if (x.hasWon(humanToken))
                     {
                         Console.WriteLine("You Win! :)");
                         x.giveReinforcement(false);
@@ -85,7 +88,7 @@ namespace AIProject3
                         humanBoard = x.getCurrentBoard();
                     }
                     
-                    if (x.hasWon('X'))
+                    if (x.hasWon(botToken))
                     {
                         x.giveReinforcement(true);
                         var Btest = x.getCurrentBoard();
@@ -101,7 +104,7 @@ namespace AIProject3
                         Console.WriteLine("You Lost! :(");
                         break;
                     }
-                    else if (x.hasWon('O'))
+                    else if (x.hasWon(humanToken))
                     {
                         Console.WriteLine("You Win! :)");
                         x.giveReinforcement(false);
@@ -114,7 +117,7 @@ namespace AIProject3
                     }
 
                     DoFile Bwriter = new DoFile();
-                    Bwriter.WriteStatetionary("test.txt", x.getStatetionary());
+                    Bwriter.WriteStatetionary("test" + botToken + ".txt", x.getStatetionary());
                 }
             }
             else
@@ -124,19 +127,21 @@ namespace AIProject3
                     if (loop % 10 == 0)
                         Console.WriteLine(loop);
                     //play itself
-                    Agent x = new Agent("temp_filename", 'X', new StringBuilder("_________"));
-                    Agent o = new Agent("temp_filename", 'O', new StringBuilder("_________"));
+                    Agent x = new Agent("testX", 'X', new StringBuilder("_________"));
+                    Agent o = new Agent("testO", 'O', new StringBuilder("_________"));
                     int ctr = 0;
 
                     DoFile writerA = new DoFile();
 
                     //                Console.WriteLine("Read:");
-                    var Astionary = writerA.ReadStatetionary("test.txt");
+                    var Astionary = writerA.ReadStatetionary("testX.txt");
+                    var Cstionary = writerA.ReadStatetionary("testO.txt");
+
                     //foreach (var blep in Astionary)
                     //    Console.WriteLine("{0}: {1}", blep.Key, String.Join(",", blep.Value.Select(p => p.ToString()).ToArray()));
 
                     x.setStatetionary(Astionary);
-                    o.setStatetionary(Astionary);
+                    o.setStatetionary(Cstionary);
 
                     while (true)
                     {
@@ -197,7 +202,8 @@ namespace AIProject3
                     DoFile writer = new DoFile();
 
                     //                Console.WriteLine("Write:");
-                    writer.WriteStatetionary("test.txt", x.getStatetionary());
+                    writer.WriteStatetionary("testX.txt", x.getStatetionary());
+                    writer.WriteStatetionary("testO.txt", o.getStatetionary());
 
 
                     //foreach (var blep in stionary)

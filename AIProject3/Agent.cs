@@ -229,14 +229,14 @@ namespace AIProject3
             values[mostRecentmove.Item2] = didIWin ? 1 : values[mostRecentmove.Item2] - (values[mostRecentmove.Item2] * currentDecay);
             statetionary.Remove(mostRecentmove.Item1.ToString());
             statetionary.Add(mostRecentmove.Item1.ToString(), values);
-            currentDecay /= 2;
+            currentDecay *= .5;
 
             while(previousMoves.Count > 0)
             {
                 mostRecentmove = previousMoves.Pop();
                 values = statetionary[mostRecentmove.Item1.ToString()];
-                values[mostRecentmove.Item2] = didIWin ? values[mostRecentmove.Item2] + (values[mostRecentmove.Item2] * currentDecay) : values[mostRecentmove.Item2] - (values[mostRecentmove.Item2] * currentDecay);
-                currentDecay /= 2;
+                values[mostRecentmove.Item2] = didIWin ? values[mostRecentmove.Item2] + ((1-values[mostRecentmove.Item2]) * currentDecay) : values[mostRecentmove.Item2] - (values[mostRecentmove.Item2] * currentDecay);
+                currentDecay *= .5;
             }
         }
 
