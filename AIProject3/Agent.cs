@@ -9,8 +9,8 @@ namespace AIProject3
     class Agent
     {
         double decayFactor;
-        bool favorExploration;
-        char token;
+        public bool favorExploration { get; set; }
+        public char token { get; }
         string filename;
         Agent opponent;
         bool playingAgent;
@@ -21,6 +21,8 @@ namespace AIProject3
 
         public Agent(string filenm, char tokn, StringBuilder board, bool favrExplrtn = true)
         {
+            DoFile writer = new DoFile();
+
             decayFactor = .5;
             favorExploration = favrExplrtn;
             
@@ -31,7 +33,7 @@ namespace AIProject3
 
             rando = new Random(Guid.NewGuid().GetHashCode());
             previousMoves = new Stack<Tuple<StringBuilder, int>>();
-            statetionary = new Dictionary<string, double[]>();
+            statetionary = writer.ReadStatetionary(filename);
 
         }
 
@@ -149,9 +151,8 @@ namespace AIProject3
 
         }
 
-        public void makeMove(StringBuilder boardRigtNow)
+        public void makeMove()
         {
-            currentBoard = boardRigtNow;
             
             if (!seenState())
             {
@@ -161,39 +162,48 @@ namespace AIProject3
             
             if (favorExploration)
             {
-                Tuple<int, double>[] sorted = new Tuple<int, double>[9];
-                
-                for (int i=0;i<9;i++)
-                    sorted[i] = Tuple.Create(i, statetionary[currentBoard.ToString()][i]);
+                List<Tuple<int, double>> sorted = new List<Tuple<int, double>>();
 
-                Array.Sort(sorted, (x,y) =>  x.Item2.CompareTo(y.Item2));
+                for (int i = 0; i < 9; i++)
+                    if(currentBoard[i] == '_')
+                        sorted.Add(Tuple.Create(i, statetionary[currentBoard.ToString()][i]));
 
-                int a = Math.Max(rando.Next(9), rando.Next(9));
-                while(currentBoard[sorted[a].Item1] != '_')
-                    a = Math.Max(rando.Next(9), rando.Next(9));
+                sorted.Sort((x,y) =>  x.Item2.CompareTo(y.Item2));
+
+                int a = Math.Max(rando.Next(sorted.Count), rando.Next(sorted.Count));
 
                 previousMoves.Push(Tuple.Create(new StringBuilder(currentBoard.ToString()), sorted[a].Item1));
                 currentBoard[ sorted[a].Item1 ] = token; 
             }
             else
             {
-                Tuple<int, double>[] sorted = new Tuple<int, double>[9];
+                List<Tuple<int, double>> sorted = new List<Tuple<int, double>>();
 
                 for (int i = 0; i < 9; i++)
-                    sorted[i] = Tuple.Create(i, statetionary[currentBoard.ToString()][i]);
+                    if (currentBoard[i] == '_')
+                        sorted.Add( Tuple.Create(i, statetionary[currentBoard.ToString()][i]) );
 
-                Array.Sort(sorted, (x, y) => x.Item2.CompareTo(y.Item2));
+                sorted.Sort((x, y) => x.Item2.CompareTo(y.Item2));
 
-                for (int i = 8; i >= 0; i--)
+                for (int i = sorted.Count-1; i >= 0; i--)
                     Console.WriteLine(sorted[i]);
+                Console.WriteLine();
 
-                int ctr = 8;
-                while(currentBoard[sorted[ctr].Item1] != '_')
-                    ctr--;
-
-                previousMoves.Push(Tuple.Create(new StringBuilder(currentBoard.ToString()), sorted[ctr].Item1));
-                currentBoard[sorted[ctr].Item1] = token;
+                previousMoves.Push(Tuple.Create(new StringBuilder(currentBoard.ToString()), sorted[sorted.Count-1].Item1));
+                currentBoard[sorted[sorted.Count-1].Item1] = token;
             }
+        }
+
+        public void makeMove(int move)
+        {
+            if (!seenState())
+            {
+                double[] h = { 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 };
+                statetionary.Add(currentBoard.ToString(), h);
+            }
+
+            previousMoves.Push(Tuple.Create(new StringBuilder(currentBoard.ToString()), move));
+            currentBoard[move] = token;
         }
 
         public bool hasWon(char tkn)
@@ -240,5 +250,11 @@ namespace AIProject3
             }
         }
 
+        public void writeStationary()
+        {
+            DoFile writer = new DoFile();
+
+            writer.WriteStatetionary(filename, statetionary);
+        }
     }
 }
