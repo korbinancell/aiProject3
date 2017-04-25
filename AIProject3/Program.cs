@@ -129,6 +129,8 @@ namespace AIProject3
                         Console.WriteLine(hold);
                         string progBar = "(" + (i - hold >= 1000 ? "=" : "*") + (i - hold >= 2000 ? "=" : "*") + (i - hold >= 3000 ? "=" : "*") + (i - hold >= 4000 ? "=" : "*") + (i - hold >= 5000 ? "=" : "*") + (i - hold >= 6000 ? "=" : "*") + (i - hold >= 7000 ? "=" : "*") + (i - hold >= 8000 ? "=" : "*") + (i - hold >= 9000 ? "=" : "*") + (i - hold >= 10000 ? "=" : "*") + ")";
                         Console.WriteLine(progBar);
+                        Console.WriteLine("Playing Games");
+
                         if (i % 10000 == 0)
                             hold = i;
                     }
